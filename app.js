@@ -17,7 +17,8 @@ const adminCrudRoutes = require("./routes/adminCrudRoutes");
 const app = express();
 
 const store = new MongoDBSession({
-  uri: "mongodb://localhost:27017/Tolu-blog",
+  uri:
+    "mongodb+srv://Tolulope:fyLY5ztoWrP1jF1e@cluster0-sdeee.mongodb.net/Tolu-blog",
   collection: "sessions",
 });
 // Middlewares
