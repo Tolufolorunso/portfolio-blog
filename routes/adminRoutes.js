@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 const adminController = require("../controllers/adminController");
+// const { authorize } = require("../middlewares/middleware");
 
-router.route("/").get(adminController.getAdminPage);
+// router.route("/").get(adminController.getAdminPage);
 router
-  .route("/oreofe")
-  .get(adminController.getDashboard)
+  .route("/login")
+  .get(adminController.getLoginForm)
   .post(adminController.login);
 
-router.route("/oreofe/dashboard").get(adminController.getAdminDashboard);
-// router.route("/oreofe/user").post(adminController.signupUser);
+router.post("/signup", adminController.signup);
+router.post("/logout", adminController.logout);
 
 module.exports = router;
-// adminController.authorize,
