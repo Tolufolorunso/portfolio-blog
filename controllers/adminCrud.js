@@ -56,3 +56,37 @@ exports.deletePost = async (req, res, next) => {
     res.status(400).render("404");
   }
 };
+
+exports.getPostToEdit = async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.postId });
+    res.render("adminBlog/edit", {
+      post,
+      title: "Edit post",
+      time: req.time,
+      isAuthenticated: false,
+    });
+  } catch (error) {
+    res.status(400).render("404");
+  }
+};
+
+exports.updatePost = async (req, res, next) => {
+  const title = req.body.title;
+  const markdown = req.body.markdown;
+
+  // const updatedPost = {
+  //   title,
+  //   markdown,
+  // };
+
+  try {
+    const post = await Post.findOne({ _id: req.params.postId });
+    post.markdown = markdown;
+    post.title = title;
+    await post.save();
+    res.redirect("/dashboard/posts");
+  } catch (error) {
+    res.status(400).render("404");
+  }
+};

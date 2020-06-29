@@ -62,36 +62,27 @@
         }
     </script>
     <main class="mt mb show-form">
-        <a href="/dashboard" class="btn blue">dashboard</a>
-
         <div class="row">
             <%- include('dashboard-side') %>
                 <div class="col l9">
-                    <%  posts.forEach(function (post) { %>
-                        <div class="col s12 m6 l4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="<%= post.image %> " alt="<%= post.title %>" style="height: 150px;">
-                                    <h2 class="card-title post-heading">
-                                        <%= post.title %>
-                                    </h2>
+                    <button onclick="goBack()" class="btn blue">Go Back</button>
+                    <div class="row">
+                        <div class="col s12 l10 offset-l1">
+                            <form action="/dashboard/posts/<%= post._id %>?_method=PUT" method="POST" class="form-tag" autocomplete="off">
+                                <div class="form-group">
+                                    <input type="text" name="title" id="title" placeholder="Title" value="<%= post.title %>">
                                 </div>
-                                <div class="card-content post-content">
-                                    <%- post.sanitizeHTML.substring(0,80) %>...
-                                        <br/><span class="badge"><small><%= post.day %> day(s) ago</small></span>
+                                <div class="form-group">
+                                    <textarea id="message" name="markdown" placeholder="Content"><%- post.markdown %></textarea>
                                 </div>
-
-                                <div class="card-action">
-                                    <a href="posts/<%= post._id %>/edit" class="btn blue">edit</a>
-                                    <form class="" style="display: inline;" action="posts/<%= post._id %>?_method=DELETE" method="POST">
-                                        <button class="btn blue">delete</button>
-                                    </form>
-
+                                <div class="input-field">
+                                    <button class="btn blue">Update</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                        <%  }) %>
+                    </div>
                 </div>
         </div>
 
     </main>
+    <%- include('../partials/footer') %>
