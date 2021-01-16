@@ -8,7 +8,7 @@ const services = document.getElementById('services');
 
 const sendMessage = async message => {
 	try {
-		let data = await fetch('/', {
+		let data = await fetch('https://tolufolorunso.herokuapp.com/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
