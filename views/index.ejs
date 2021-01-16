@@ -133,7 +133,7 @@
             </p>
         </div>
         <div class="col s12 l5 offset-l2">
-            <form action="">
+            <form action="" id="form">
                 <div class="input-field">
                     <i class="material-icons prefix">email</i>
                     <input type="email" id="email">
@@ -144,39 +144,40 @@
                     <textarea id="message" class="materialize-textarea"></textarea>
                     <label for="message">Your Message</label>
                 </div>
-                <div class="input-field">
+                <!-- <div class="input-field">
                     <input type="text" class="datepicker" id="date">
                     <label for="date">Choose a date you need me for...</label>
-                </div>
-                <div class="input-field">
+                </div> -->
+                <div class="input-field" id="services">
                     <p>Services required...</p>
                     <p>
                         <label>
-                            <input type="checkbox">
+                            <input type="checkbox" id="webDesign" name="pl" value="webDesign">
                             <span>Web Design</span>
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox">
+                            <input type="checkbox" id="webDevelopment" name="pl" value="webDevelopment">
                             <span>Web Development</span>
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox">
+                            <input type="checkbox" id="api" name="pl" value="api">
                             <span>Node.Js API Development</span>
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox">
+                            <input type="checkbox" id="photography" name="pl" value="photography">
                             <span>Photography</span>
                         </label>
                     </p>
                 </div>
+                <div id="msg"></div>
                 <div class="input-field">
-                    <button class="btn blue" disabled>Submit</button>
+                    <button class="btn blue" type="submit" id="submit">Submit</button>
                 </div>
             </form>
         </div>

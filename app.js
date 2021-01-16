@@ -41,17 +41,21 @@ app.use(compression());
 const adminRoutes = require('./routes/adminRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const adminCrudRoutes = require('./routes/adminCrudRoutes');
+const nodeMailerRoutes = require('./routes/nodemailer');
 app.use('/admin', adminRoutes);
 app.use('/blog', blogRoutes);
 app.use('/dashboard', adminCrudRoutes);
+app.use('/', nodeMailerRoutes);
 
 app.get('/', (req, res) => {
+	console.log(req.body);
 	res.status(200).render('index', {
 		title: "Tolu's personal page",
 		time: req.time,
 		isAuthenticated: false
 	});
 });
+
 app.get('*', (req, res) => {
 	res.status(200).render('404', {
 		title: '404 Page',
