@@ -36,6 +36,7 @@ router.post('/', (req, res) => {
 				console.log('something went wrong, try again', error);
 				res.status(400).json({
 					title: 'something went wrong, try again',
+					error: error,
 					time: req.time,
 					isAuthenticated: false
 				});
