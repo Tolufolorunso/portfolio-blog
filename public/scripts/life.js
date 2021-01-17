@@ -16,9 +16,9 @@ const sendMessage = async message => {
 			body: JSON.stringify(message)
 		});
 		console.log(data);
-		if (!data.ok) {
-			throw Error('Something went wrong, please try again');
-		}
+		// if (!data.ok) {
+		// 	throw Error('Something went wrong, please try again');
+		// }
 		let res = await data.json();
 		console.log(data);
 		return res;
