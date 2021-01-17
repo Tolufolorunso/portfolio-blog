@@ -13,7 +13,7 @@ require('dotenv').config();
 const app = express();
 
 const store = new MongoDBSession({
-	uri: process.env.DATABASE_SESSION_LOCAL,
+	uri: process.env.DATABASE_SESSION,
 	collection: 'sessions'
 });
 // Middlewares
@@ -64,7 +64,7 @@ app.get('*', (req, res) => {
 });
 
 mongoose
-	.connect(process.env.DATABASE_LOCAL, {
+	.connect(process.env.DATABASE, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useUnifiedTopology: true,
