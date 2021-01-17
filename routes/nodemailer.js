@@ -26,6 +26,7 @@ router.post('/', (req, res) => {
 			<h3>Email from my portfolio page</h3>
 			<p><b>Email from</b>: ${email}</p>
 			<p><b>Services Needed</b>: ${servicesRequired}</p>
+			<h4>Message:</h4>
 			<p>${message}</p>
 			`
 		};
