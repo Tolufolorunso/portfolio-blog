@@ -22,14 +22,11 @@ router.post('/', (req, res) => {
 			from: email,
 			to: 'tolufolorunso@yahoo.com',
 			subject: 'Email from my portfolio page',
-			text: `
-			Email from: ${email},
-			Services Needed: ${servicesRequired}
-			message: ${message}
-			`,
 			html: `
 			<h3>Email from my portfolio page</h3>
-			
+			<p><b>Email from</b>: ${email}</p>
+			<p><b>Services Needed</b>: ${servicesRequired}</p>
+			<p>${message}</p>
 			`
 		};
 
