@@ -13,7 +13,7 @@ require('dotenv').config();
 const app = express();
 
 const store = new MongoDBSession({
-	uri: process.env.DATABASE_SESSION,
+	uri: process.env.DATABASE_SESSION_LOCAL,
 	collection: 'sessions'
 });
 // Middlewares
@@ -48,7 +48,6 @@ app.use('/dashboard', adminCrudRoutes);
 app.use('/', nodeMailerRoutes);
 
 app.get('/', (req, res) => {
-	console.log(req.body);
 	res.status(200).render('index', {
 		title: "Tolu's personal page",
 		time: req.time,
@@ -65,7 +64,7 @@ app.get('*', (req, res) => {
 });
 
 mongoose
-	.connect(process.env.DATABASE, {
+	.connect(process.env.DATABASE_LOCAL, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useUnifiedTopology: true,

@@ -25,15 +25,16 @@ router.post('/', (req, res) => {
 			text: `
 			Email from: ${email},
 			Services Needed: ${servicesRequired}
-			Date: ${date},
 			message: ${message}
 			`,
-			html: ``
+			html: `
+			<h3>Email from my portfolio page</h3>
+			
+			`
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => {
 			if (error) {
-				console.log('something went wrong, try again', error);
 				res.status(400).json({
 					title: 'something went wrong, try again',
 					error: error,
@@ -41,7 +42,7 @@ router.post('/', (req, res) => {
 					isAuthenticated: false
 				});
 			} else {
-				console.log('Email sent: ' + info.response);
+				// console.log('Email sent: ' + info.response);
 				res.status(200).json({
 					title: 'message sent successfully',
 					time: req.time,

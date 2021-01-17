@@ -6,33 +6,32 @@ const photography = document.getElementById('photography');
 const api = document.getElementById('api');
 const services = document.getElementById('services');
 
-const sendMessage = async message => {
-	try {
-		let data = await fetch('/', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(message)
-		});
-		console.log(data);
-		// if (!data.ok) {
-		// 	throw Error('Something went wrong, please try again');
-		// }
-		let res = await data.json();
-		console.log(data);
-		return res;
-	} catch (error) {
-		console.log(error);
+const displayMsg = (message, color) => {
+	let msg = document.getElementById('msg');
+	msg.innerHTML = `<p style="color:${color};">${message}</p>`;
+	setTimeout(function () {
+		msg.innerHTML = '';
+	}, 5000);
+};
 
-		return error;
+const sendMessage = async message => {
+	let data = await fetch('/', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(message)
+	});
+	if (!data.ok) {
+		throw Error('Something went wrong, please try again');
 	}
+	let res = await data.json();
+	return res;
 };
 
 form.addEventListener('submit', ev => {
 	ev.preventDefault();
 	let submit = document.getElementById('submit');
-	let msg = document.getElementById('msg');
 	submit.innerText = 'Sending...';
 	let servicesRequired = [];
 	const markedCheckbox = document.getElementsByName('pl');
@@ -40,6 +39,16 @@ form.addEventListener('submit', ev => {
 		if (checkbox.checked) {
 			servicesRequired.push(checkbox.value);
 		}
+	}
+	if (servicesRequired.length === 0) {
+		alert('Atleast one service required');
+		submit.innerText = 'Submit';
+		return;
+	}
+	if (message.value === '' || email.value === '') {
+		alert('Email and Message required');
+		submit.innerText = 'Submit';
+		return;
 	}
 	const emailData = {
 		message: message.value,
@@ -50,13 +59,18 @@ form.addEventListener('submit', ev => {
 
 	sendMessage(emailData)
 		.then(res => {
-			console.log(res);
-			msg.innerHTML = `<p>${res.title}</p>`;
+			displayMsg(res.title, 'green');
+			message.value = '';
+			email.value = '';
+			for (let checkbox of markedCheckbox) {
+				if (checkbox.checked) {
+					checkbox.checked = false;
+				}
+			}
 			submit.innerText = 'Submit';
 		})
 		.catch(error => {
-			console.log(error);
-			msg.innerHTML = `<p style="color:red;">Something went wrong, please try again</p>`;
+			displayMsg(error, 'red');
 			submit.innerText = 'Submit';
 		});
 });
