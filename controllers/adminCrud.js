@@ -75,6 +75,7 @@ exports.getPostToEdit = async (req, res, next) => {
 exports.updatePost = async (req, res, next) => {
   const title = req.body.title
   const markdown = req.body.markdown
+  const image = req.body.image
 
   // const updatedPost = {
   //   title,
@@ -85,6 +86,8 @@ exports.updatePost = async (req, res, next) => {
     const post = await Post.findOne({ _id: req.params.postId })
     post.markdown = markdown
     post.title = title
+    post.image = image
+
     await post.save()
     res.redirect('/dashboard/posts')
   } catch (error) {
