@@ -1,70 +1,70 @@
-const Admin = require('../models/adminModel');
-const jwt = require('jsonwebtoken');
-const { promisify } = require('util');
+const Admin = require('../models/adminModel')
+const jwt = require('jsonwebtoken')
+const { promisify } = require('util')
 
 exports.signup = async (req, res, next) => {
-	const userExist = await Admin.findOne({ email: req.body.email });
-	if (userExist) {
-		// res.status(201).json({
-		//   status: "success",
-		//   token,
-		//   data: {
-		//     user: newUser,
-		//   },
-		// });
-	}
-	// const newUser = await Admin.create(req.body);
-	// const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-	//   expiresIn: process.env.JWT_EXPIRES_IN,
-	// });
+  const userExist = await Admin.findOne({ email: req.body.email })
+  if (userExist) {
+    // res.status(201).json({
+    //   status: "success",
+    //   token,
+    //   data: {
+    //     user: newUser,
+    //   },
+    // });
+  }
+  // const newUser = await Admin.create(req.body);
+  // const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+  //   expiresIn: process.env.JWT_EXPIRES_IN,
+  // });
 
-	// res.status(201).json({
-	//   status: "success",
-	//   token,
-	//   data: {
-	//     user: newUser,
-	//   },
-	// });
-};
+  // res.status(201).json({
+  //   status: "success",
+  //   token,
+  //   data: {
+  //     user: newUser,
+  //   },
+  // });
+}
 
 exports.getLoginForm = (req, res, next) => {
-	if (req.session.isLoggedIn) {
-		res.redirect('dashboard');
-	}
-	// const isLoggedIn = req.get("Cookie").trim().split("=")[1];
-	res.status(200).render('auth/login', {
-		title: "Tolu's blog",
-		time: req.time,
-		isAuthenticated: false
-	});
-};
+  if (req.session.isLoggedIn) {
+    res.redirect('dashboard')
+  }
+  // const isLoggedIn = req.get("Cookie").trim().split("=")[1];
+  res.status(200).render('auth/login', {
+    title: "Tolu's blog",
+    time: req.time,
+    isAuthenticated: false
+  })
+}
 
 exports.login = async (req, res, next) => {
-	const { username, password } = req.body;
-	if (!username || !password) {
-		return next(new Error('Please enter email and password', 400));
-	}
-	try {
-		const user = await Admin.findOne({ username }).select('+password');
-		if (!user || !(await user.correctPassword(password, user.password))) {
-			return next(new Error('Incorrect email or password', 401));
-		}
-		req.session.isLoggedIn = true;
-		req.session.user = user;
-		res.redirect('/dashboard');
-	} catch (error) {
-		res.render('error', {
-			title: 'Error page',
-			error: error.message,
-			time: req.time
-		});
-	}
-};
+  const { username, password } = req.body
+  if (!username || !password) {
+    return next(new Error('Please enter email and password', 400))
+  }
+  try {
+    const user = await Admin.findOne({ username }).select('+password')
+    if (!user || !(await user.correctPassword(password, user.password))) {
+      return next(new Error('Incorrect email or password', 401))
+    }
+    req.session.isLoggedIn = true
+    req.session.user = user
+    res.redirect('/dashboard')
+  } catch (error) {
+    res.render('error', {
+      title: 'Error page',
+      error: error.message,
+      time: req.time
+    })
+  }
+}
 exports.logout = async (req, res, next) => {
-	req.session.destroy(error => {
-		res.redirect('login');
-	});
-};
+  req.session.destroy(error => {
+    res.redirect('login')
+  })
+}
 
 // exports.getAdminPage = async (req, res, next) => {
 //   res
