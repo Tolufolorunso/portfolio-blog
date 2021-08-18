@@ -29,7 +29,8 @@ const store = new MongoDBSession({
   collection: 'sessions'
 })
 // Middlewares
-app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(
   session({
@@ -54,6 +55,7 @@ app.use(compression())
 // const blogRoutes = require('./routes/blogRoutes')
 // const adminCrudRoutes = require('./routes/adminCrudRoutes')
 // const nodeMailerRoutes = require('./routes/nodemailer')
+app.use('/hng', require('./routes/hngRoutes'))
 app.use('/admin', require('./routes/adminRoutes'))
 app.use('/blog', require('./routes/blogRoutes'))
 app.use('/dashboard', require('./routes/adminCrudRoutes'))
